@@ -22,7 +22,7 @@ def configLogging():
 
 
 def getConfig(configName):
-    configPath = os.path.join(rootDir, configName)
+    configPath = os.path.join(rootDir, 'conf', configName)
     if os.path.exists(configPath):
         logger.info('Loading config file from {0}'.format(configPath))
         return json.load(open(configPath, 'r', encoding="utf8"))

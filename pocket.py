@@ -5,12 +5,12 @@ import config
 import logging
 import requests
 
-try:
-    import http.client as http_client
-except ImportError:
-    # Python 2
-    import httplib as http_client
-http_client.HTTPConnection.debuglevel = 1
+# try:
+#     import http.client as http_client
+# except ImportError:
+#     # Python 2
+#     import httplib as http_client
+# http_client.HTTPConnection.debuglevel = 1
 
 app = Flask(__name__)
 logger = logging.getLogger(__name__)
@@ -79,7 +79,7 @@ def getRequestToken(consumer_key, callbackUrl):
 def addLink(link, title, tags):
     global pocketCfg
     token = pocketCfg['access_token']
-
+    consumer_key = pocketCfg['consumer_key']
     if not token:
         logger.error("access_token is not set. failed to add link.")
         return None

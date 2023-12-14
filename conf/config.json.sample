@@ -1,0 +1,22 @@
+{
+  "http": {
+    "port": 8080,
+    "host": "0.0.0.0",
+    "ssl": {
+      "enabled": false
+    }
+  },
+  "pocket": {
+    "host": "http://localhost:8080",
+    "consumer_key": "",
+    "access_token": ""
+  },
+  "mail":{
+	  "inbox": "Inbox",
+	  "processsed": "Deleted Messages",
+	  "imap_host": "imap.qq.com",
+	  "imap_user": "",
+	  "imap_pass": ""
+  }
+  
+}
