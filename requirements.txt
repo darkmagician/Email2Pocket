@@ -1,0 +1,3 @@
+Flask
+requests
+imap_tools
