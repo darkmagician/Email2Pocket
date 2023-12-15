@@ -19,31 +19,34 @@ def processLink(subject, link):
     return True
 
 
-def listFolders(mailbox, folder='', level=0):
-    current_folder = mailbox.folder.get()
-    logger.info(f"list {current_folder}")
-    if folder:
-        mailbox.folder.set(folder)
-    logger.info(f"list {folder}")
-    for f in mailbox.folder.list(folder):
-        logger.info(f"=>folder {f}")
+# def listFolders(mailbox, folder='', level=0):
+#     current_folder = mailbox.folder.get()
+#     logger.info(f"list {current_folder}")
+#     if folder:
+#         mailbox.folder.set(folder)
+#     logger.info(f"list {folder}")
+#     for f in mailbox.folder.list(folder):
+#         logger.info(f"=>folder {f}")
 
-        if level > 1:
-            continue
-        listFolders(mailbox, f.name, level + 1)
-    mailbox.folder.set(current_folder)
+#         if level > 1:
+#             continue
+#         listFolders(mailbox, f.name, level + 1)
+#     mailbox.folder.set(current_folder)
 
 
 def check():
-    sleep_sec = 900
+    mailcfg = settings['mail']
+    inbox = mailcfg['inbox']
+    processsed = mailcfg['processsed']
+    imap_host = mailcfg['imap_host']
+    imap_user = mailcfg['imap_user']
+    imap_pass = mailcfg['imap_pass']
+    idle_interval = mailcfg['idle_interval']
+    idle_max = 1 + mailcfg['idle_max_time'] // idle_interval
+    sleep_sec = mailcfg['error_interval']
     while True:
         try:
-            mailcfg = settings['mail']
-            inbox = mailcfg['inbox']
-            processsed = mailcfg['processsed']
-            imap_host = mailcfg['imap_host']
-            imap_user = mailcfg['imap_user']
-            imap_pass = mailcfg['imap_pass']
+
             with MailBox(imap_host).login(imap_user, imap_pass) as mailbox:
                 # listFolders(mailbox)
                 while True:
@@ -58,8 +61,12 @@ def check():
                             logger.info(f"mail {mid} is processed")
                         else:
                             logger.info(f"mail {mid} is not processed")
+                    for x in range(idle_max):
+                        responses = mailbox.idle.wait(timeout=idle_interval)
+                        if responses:
+                            logger.info("update is found.")
+                            break
 
-                    responses = mailbox.idle.wait(timeout=600)
         except Exception as e:
             logging.error(e, exc_info=True)
 

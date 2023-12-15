@@ -16,7 +16,10 @@
 	  "processsed": "Deleted Messages",
 	  "imap_host": "imap.qq.com",
 	  "imap_user": "",
-	  "imap_pass": ""
+	  "imap_pass": "",
+	  "idle_interval": 60,
+	  "idle_max_time": 3600,
+	  "error_interval": 900
   }
   
 }
