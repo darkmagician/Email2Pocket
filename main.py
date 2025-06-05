@@ -6,6 +6,7 @@ import logging
 import requests
 import time
 import threading
+import wallabag
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +16,10 @@ logger = logging.getLogger(__name__)
 
 def processLink(subject, link):
     logger.info(f"processLink  {subject}-{link}")
-    pocket.addLink(link, subject, ['wechat'])
+    if pocket.isEnabled():
+        pocket.addLink(link, subject, ['wechat'])
+    if wallabag.isEnabled():
+        wallabag.addLink(link, subject, ['wechat'])
     return True
 
 

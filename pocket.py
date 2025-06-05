@@ -18,6 +18,10 @@ currentRequestToken = None
 pocketCfg = settings['pocket']
 
 
+def isEnabled():
+    return pocketCfg and pocketCfg['access_token']
+
+
 @app.errorhandler(Exception)
 def handle_exception(e):
     logging.error(e, exc_info=True)

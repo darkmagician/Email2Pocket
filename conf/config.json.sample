@@ -11,6 +11,13 @@
     "consumer_key": "",
     "access_token": ""
   },
+  "wallabag": {
+    "host": "https://wb.n123.eu.org:8015",
+    "client_id": "",
+    "client_secret": "",
+    "username": "",
+    "password": ""	
+  },  
   "mail":{
 	  "inbox": "Inbox",
 	  "processsed": "Deleted Messages",
